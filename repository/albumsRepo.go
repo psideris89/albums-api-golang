@@ -55,6 +55,14 @@ func UpdateAlbum(id string, baseAlbum domain.BaseAlbum) (*domain.Album, error) {
 	return &album, nil
 }
 
+func DeleteAlbum(id string) {
+	idx := findAlbumIndex(id)
+	if idx < 0 {
+		return
+	}
+	albums = append(albums[:idx], albums[idx+1:]...)
+}
+
 func findAlbumIndex(albumId string) int {
 	albumIndex := -1
 	for i := range albums {

@@ -21,6 +21,7 @@ func ConfigureRoutes(router gin.IRouter) {
 	router.GET(AlbumsRoute, getAlbums)
 	router.POST(AlbumsRoute, addAlbum)
 	router.PUT(AlbumsWithIdRoute, updateAlbum)
+	router.DELETE(AlbumsWithIdRoute, deleteAlbum)
 }
 
 func getAlbums(c *gin.Context) {
@@ -49,4 +50,10 @@ func updateAlbum(c *gin.Context) {
 		return
 	}
 	c.IndentedJSON(http.StatusCreated, savedAlbum)
+}
+
+func deleteAlbum(c *gin.Context) {
+	id := c.Param("id")
+	repository.DeleteAlbum(id)
+	c.Status(http.StatusNoContent)
 }
